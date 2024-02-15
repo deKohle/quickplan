@@ -1,5 +1,7 @@
 package de.core.quickplan.domain.dto;
 
+import de.core.quickplan.constants.DbConstants;
+import de.core.quickplan.validation.Timestamp;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -11,22 +13,26 @@ import jakarta.validation.constraints.Size;
  */
 public class AppointmentDto {
 	/**
+	 * the UUID-identifier of the object as an string
+	 */
+	public String identifier;
+	/**
 	 * the time this appointment begins<br>
 	 * -> this gets converted to an time-stamp
 	 */
-	@Timestamp(message=)
+	@Timestamp(message="error.timestamp")
 	public String begin;
 	/**
 	 * the time this appointment ends<br>
 	 * -> this gets converted to an time-stamp
 	 */
-	@Timestamp(message=)
+	@Timestamp(message="error.timestamp")
 	public String end;
 	/**
 	 * a description of this appointment
 	 */
-	@NotBlank(message=)
-	@Size(max=,message=)
+	@NotBlank(message="error.description.blank")
+	@Size(max=DbConstants.DEFAULT_TEXT_LENGTH,message="error.description.length")
 	public String description;
 	
 	public AppointmentDto()
@@ -34,11 +40,12 @@ public class AppointmentDto {
 		super();
 	}
 
-	public AppointmentDto(String begin, String end, String description) {
-		super();
-		this.begin = begin;
-		this.end = end;
-		this.description = description;
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
 	}
 
 	public String getBegin() {
