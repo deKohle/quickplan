@@ -9,18 +9,18 @@ import jakarta.validation.constraints.Size;
  * @author Sebastian Kohler
  *
  */
-public class AppointmentDTO {
+public class AppointmentDto {
 	/**
-	 * the time this appointment begins
+	 * the time this appointment begins<br>
 	 * -> this gets converted to an time-stamp
 	 */
-	@Timestamp
+	@Timestamp(message=)
 	public String begin;
 	/**
-	 * the time this appointment ends
+	 * the time this appointment ends<br>
 	 * -> this gets converted to an time-stamp
 	 */
-	@Timestamp
+	@Timestamp(message=)
 	public String end;
 	/**
 	 * a description of this appointment
@@ -29,12 +29,12 @@ public class AppointmentDTO {
 	@Size(max=,message=)
 	public String description;
 	
-	public AppointmentDTO()
+	public AppointmentDto()
 	{
 		super();
 	}
 
-	public AppointmentDTO(String begin, String end, String description) {
+	public AppointmentDto(String begin, String end, String description) {
 		super();
 		this.begin = begin;
 		this.end = end;

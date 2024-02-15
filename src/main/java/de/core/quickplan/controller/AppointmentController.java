@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.core.quickplan.domain.dto.AppointmentDTO;
+import de.core.quickplan.domain.dto.AppointmentDto;
 import jakarta.validation.Valid;
 
 /**
@@ -32,7 +32,7 @@ public class AppointmentController {
 	 * @return
 	 */
 	@RequestMapping(path=ENDPOINT_URI, method=RequestMethod.POST)
-	public ResponseEntity<Void> createAppointment(@ModelAttribute("appointment") @Valid AppointmentDTO app, BindingResult result)
+	public ResponseEntity<Void> createAppointment(@ModelAttribute("appointment") @Valid AppointmentDto app, BindingResult result)
 	{
 		logger.trace("CREATE an new appointment");
 		if(result.hasErrors())
