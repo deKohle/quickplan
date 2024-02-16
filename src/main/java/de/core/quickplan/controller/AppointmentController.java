@@ -1,5 +1,7 @@
 package de.core.quickplan.controller;
 
+import java.time.LocalDate;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.core.quickplan.domain.Month;
 import de.core.quickplan.domain.dto.AppointmentDto;
 import de.core.quickplan.service.inter.IAppointmentService;
 import de.core.quickplan.service.misc.ResponseService;
@@ -101,6 +104,23 @@ public class AppointmentController {
 		{
 			logger.info("could not delete an appointment");
 			return ResponseService.error();
+		}
+		return ResponseService.success();
+	}
+	
+	@RequestMapping(path="/test", method=RequestMethod.GET)
+	public ResponseEntity<Void> test()
+	{
+		logger.trace("test");
+		System.out.print(new Month(LocalDate.now()).toString());
+		System.out.print("\n\n\n");
+		for(int year = 2000; year < 2050; ++year)
+		{
+			for(int i = 1; i<=12;++i)
+			{
+				System.out.print(new Month(year,i).toString());
+				System.out.print("\n\n");
+			}
 		}
 		return ResponseService.success();
 	}
