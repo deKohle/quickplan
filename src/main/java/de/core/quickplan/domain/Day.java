@@ -58,7 +58,11 @@ public class Day {
 		this.unfocused = unfocused;
 		this.dates = new ArrayList<AppointmentDto>();
 		this.datesLoaded = false;
-		this.thisDay = LocalDate.of(year, month, dayOfMonth);
+		this.thisDay = LocalDate.of(1970, 1, 1);
+		if(dayOfMonth > 0 && !unfocused)
+		{
+			this.thisDay = LocalDate.of(year, month, dayOfMonth);
+		}
 	}
 	public Object getDayOfMonth() {
 		return dayOfMonth;

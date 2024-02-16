@@ -1,5 +1,8 @@
 package de.core.quickplan.service.impl;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
@@ -63,6 +66,11 @@ public class AppointmentService implements IAppointmentService {
 	@Override
 	public void delete(String uuid) throws IllegalArgumentException {
 		dateRepo.deleteById(UUID.fromString(uuid));
+	}
+
+	@Override
+	public List<Appointment> find(LocalDateTime start, LocalDateTime end) {
+		return dateRepo.findAll(Timestamp.valueOf(start), Timestamp.valueOf(end));
 	}
 
 }

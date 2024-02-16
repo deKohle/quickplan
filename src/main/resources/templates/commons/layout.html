@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html th:with="lang=${#locale.language}" th:lang="${lang}"
+	xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	
+	<!-- CSRF - Protection -->
+	<!-- meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/-->
+	
+	<!-- Title - Layout -->
+	<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Quickplan</title>
+	
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="/styles/main.css" />
+</head>
+<body class="body">
+	<nav class="sticky-top">
+		<nav th:replace="~{commons/navigation::navigation()}"></nav>
+		<nav layout:fragment="additionalNavigation"></nav>
+	</nav>
+	<main layout:fragment="content"></main>
+	
+	<script src="/scripts/common.js" type="text/javascript"></script>
+
+	<script layout:fragment="additionalScript"></script>
+</body>
+</html>

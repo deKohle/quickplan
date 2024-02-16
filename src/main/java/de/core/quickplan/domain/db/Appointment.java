@@ -37,13 +37,13 @@ public class Appointment {
 	/**
 	 * the starting-time
 	 */
-	@Column(name = "begin")
+	@Column(name = "begin_time")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Timestamp begin;
 	/**
 	 * the end-time
 	 */
-	@Column(name = "end")
+	@Column(name = "end_time")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Timestamp end;
 	/**

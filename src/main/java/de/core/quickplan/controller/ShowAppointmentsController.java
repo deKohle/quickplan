@@ -1,7 +1,9 @@
 package de.core.quickplan.controller;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,7 +42,9 @@ public class ShowAppointmentsController {
 		Month calendar = getMonth(year,month);
 		List<Appointment> dates = dateService.find(calendar.start(),calendar.end());
 		calendar.addAppointments(dates);
-		
+		Map<String,Object> data = new HashMap<String,Object>();
+		data.put("calendar", calendar);
+		return new ModelAndView("calendar",data);
 	}
 
 	/**
