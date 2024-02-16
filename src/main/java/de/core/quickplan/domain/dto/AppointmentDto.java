@@ -1,6 +1,7 @@
 package de.core.quickplan.domain.dto;
 
 import de.core.quickplan.constants.DbConstants;
+import de.core.quickplan.domain.db.Appointment;
 import de.core.quickplan.validation.Day;
 import de.core.quickplan.validation.Timestamp;
 import jakarta.validation.constraints.NotBlank;
@@ -16,36 +17,47 @@ public class AppointmentDto {
 	/**
 	 * the UUID-identifier of the object as an string
 	 */
-	public String identifier;
+	private String identifier;
 	/**
 	 * the time this appointment begins<br>
 	 * -> this gets converted to an time-stamp
 	 */
 	@Timestamp
-	public String begin;
+	private String begin;
 	/**
 	 * the time this appointment ends<br>
 	 * -> this gets converted to an time-stamp
 	 */
 	@Timestamp
-	public String end;
+	private String end;
 	/**
 	 * can be used instead of begin and end to mark an appointment for the whole day
 	 */
 	@Day
-	public String date;
+	private String date;
 	/**
 	 * a description of this appointment
 	 */
 	@NotBlank(message="error.description.blank")
 	@Size(max=DbConstants.DEFAULT_TEXT_LENGTH,message="error.description.length")
-	public String description;
+	private String description;
 	
 	public AppointmentDto()
 	{
 		super();
 	}
-
+	/**
+	 * used to convert an database object to an viewable object
+	 * @param app - the appointment
+	 */
+	public AppointmentDto(Appointment app) {
+		super();
+		this.identifier = app.getIdentifier().toString();
+		this.begin = app.getBegin().toString();
+		this.end = app.getEnd().toString();
+		this.date = null;
+		this.description = app.getDescription();
+	}
 	public String getIdentifier() {
 		return identifier;
 	}

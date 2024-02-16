@@ -1,5 +1,9 @@
 package de.core.quickplan.service.inter;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import de.core.quickplan.domain.db.Appointment;
 import de.core.quickplan.domain.dto.AppointmentDto;
 
 /**
@@ -29,4 +33,11 @@ public interface IAppointmentService {
 	 * @throws IllegalArgumentException if the object could not get deleted
 	 */
 	public void delete(String uuid) throws IllegalArgumentException;
+	/**
+	 * loads all appointments inside this time frame
+	 * @param start
+	 * @param end
+	 * @return the appointments for display
+	 */
+	public List<Appointment> find(LocalDateTime start, LocalDateTime end);
 }

@@ -2,9 +2,13 @@ package de.core.quickplan.domain;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.core.quickplan.domain.db.Appointment;
 
 /**
  * an month-object prepared for display
@@ -53,15 +57,27 @@ public class Month {
 		month = year;
 		weeks = new ArrayList<Week>();
 		LocalDate firstDay = month.atDay(FIRST_DAY);
-		Week firstWeek = Week.starts(firstDay.getDayOfWeek());
+		Week firstWeek = Week.starts(firstDay.getDayOfWeek(),year.getMonthValue(),year.getYear());
 		weeks.add(firstWeek);
 		int currentDay = firstWeek.getDaysInsideMonth() + 1;
 		for(;(currentDay+firstWeek.getWeekLength())<month.lengthOfMonth();currentDay+=firstWeek.getWeekLength())
 		{
-			weeks.add(Week.whole(currentDay));
+			weeks.add(Week.whole(currentDay,year.getMonthValue(),year.getYear()));
 		}
-		Week lastWeek = Week.ends(month.atEndOfMonth().getDayOfWeek(),currentDay);
+		Week lastWeek = Week.ends(month.atEndOfMonth().getDayOfWeek(),currentDay,year.getMonthValue(),year.getYear());
 		weeks.add(lastWeek);
+	}
+	/**
+	 * @return the first moment of this month
+	 */
+	public LocalDateTime start() {
+		return month.atDay(FIRST_DAY).atStartOfDay();
+	}
+	/**
+	 * @return the last moment of this month
+	 */
+	public LocalDateTime end() {
+		return month.atEndOfMonth().atTime(LocalTime.MAX);
 	}
 	/**
 	 * @return the year this month is inside
@@ -82,6 +98,16 @@ public class Month {
 	 */
 	public List<Week> getWeeks() {
 		return weeks;
+	}
+	/**
+	 * used to add the appointments to the days
+	 * @param dates
+	 */
+	public void addAppointments(List<Appointment> dates) {
+		for(Week week : weeks)
+		{
+			week.addAppointments(dates);
+		}
 	}
 	
 	@Override

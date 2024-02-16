@@ -1,8 +1,16 @@
 package de.core.quickplan.service.impl;
 
+import java.util.NoSuchElementException;
+import java.util.UUID;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import de.core.quickplan.domain.db.Appointment;
 import de.core.quickplan.domain.dto.AppointmentDto;
+import de.core.quickplan.repository.AppointmentRepository;
 import de.core.quickplan.service.inter.IAppointmentService;
 
 /**
@@ -13,23 +21,48 @@ import de.core.quickplan.service.inter.IAppointmentService;
  */
 @Service
 public class AppointmentService implements IAppointmentService {
-
+	@SuppressWarnings("unused")
+	private static final Log logger = LogFactory.getLog(AppointmentService.class);
+	
+	@Autowired
+	private AppointmentRepository dateRepo;
+	
 	@Override
 	public void create(AppointmentDto app) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
+		if(app.getIdentifier() != null && !app.getIdentifier().isBlank()) 
+		{
+			throw new IllegalArgumentException("an identifier was given, but it tries to create a new object");
+		}
+		dateRepo.save(new Appointment(app));
 	}
 
 	@Override
 	public void update(AppointmentDto app) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
+		Appointment old = getAppointment(app.getIdentifier());
+		old.edit(app);
+		dateRepo.save(old);
+	}
+
+	/**
+	 * loads an appointment by its uuid
+	 * @param identifier the uuid as an string
+	 * @return the loaded appointment
+	 * @throws IllegalArgumentException if the object could not get loaded
+	 */
+	private Appointment getAppointment(String identifier) throws IllegalArgumentException 
+	{
+		try {
+			return dateRepo.findById(UUID.fromString(identifier)).get();
+		}
+		catch(NoSuchElementException e)
+		{
+			throw new IllegalArgumentException("requested object does not exist");
+		}
 	}
 
 	@Override
 	public void delete(String uuid) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
+		dateRepo.deleteById(UUID.fromString(uuid));
 	}
 
 }

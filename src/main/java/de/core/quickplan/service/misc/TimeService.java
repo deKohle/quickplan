@@ -1,8 +1,12 @@
 package de.core.quickplan.service.misc;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import de.core.quickplan.domain.db.Appointment;
 
 /**
  * methods helping at working with time
@@ -41,5 +45,24 @@ public class TimeService {
 	public static LocalDate date(String value) throws DateTimeParseException
 	{
 		return LocalDate.parse(value);
+	}
+
+	/**
+	 * get the current time
+	 * ->e.g. used to set the time last logged in
+	 * @return
+	 */
+	public static Timestamp now() {
+		return Timestamp.from(Instant.now());
+	}
+
+	/**
+	 * checks if this appointment falls inside the time span
+	 * @param date an appointment to check if it is inside that time frame
+	 * @param start of the time frame
+	 * @param end of the time frame
+	 */
+	public static boolean inside(Appointment date, LocalDateTime start, LocalDateTime end) {
+		return date.getBegin().before(Timestamp.valueOf(end)) && date.getEnd().after(Timestamp.valueOf(start));
 	}
 }
