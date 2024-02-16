@@ -1,6 +1,7 @@
 package de.core.quickplan.domain.dto;
 
 import de.core.quickplan.constants.DbConstants;
+import de.core.quickplan.validation.Day;
 import de.core.quickplan.validation.Timestamp;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -20,14 +21,19 @@ public class AppointmentDto {
 	 * the time this appointment begins<br>
 	 * -> this gets converted to an time-stamp
 	 */
-	@Timestamp(message="error.timestamp")
+	@Timestamp
 	public String begin;
 	/**
 	 * the time this appointment ends<br>
 	 * -> this gets converted to an time-stamp
 	 */
-	@Timestamp(message="error.timestamp")
+	@Timestamp
 	public String end;
+	/**
+	 * can be used instead of begin and end to mark an appointment for the whole day
+	 */
+	@Day
+	public String date;
 	/**
 	 * a description of this appointment
 	 */
@@ -62,6 +68,14 @@ public class AppointmentDto {
 
 	public void setEnd(String end) {
 		this.end = end;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public String getDescription() {

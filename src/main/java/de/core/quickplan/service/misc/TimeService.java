@@ -1,6 +1,8 @@
 package de.core.quickplan.service.misc;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * methods helping at working with time
@@ -26,5 +28,18 @@ public class TimeService {
 		{
 			return Timestamp.valueOf(time+":00");
 		}
+	}
+
+	/**
+	 * converts a string to an local-date<br>
+	 * required form:<br>
+	 *  yyyy-mm-dd<br>
+	 * @param value
+	 * @return an local-date if everything went as expected
+	 * @throws DateTimeParseException if the string could not get converted
+	 */
+	public static LocalDate date(String value) throws DateTimeParseException
+	{
+		return LocalDate.parse(value);
 	}
 }

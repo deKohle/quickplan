@@ -9,7 +9,7 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 /**
- * annotates an field as an time-stamp-string(yyy-mm-dd hh:mm[:ss])<br>
+ * annotates an field as an day-string (yyy-mm-dd)<br>
  * allows for blank-values<br>
  * use NotBlank if you want to check this case
  * 
@@ -18,9 +18,9 @@ import jakarta.validation.Payload;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = TimestampValidator.class)
-public @interface Timestamp {
-	String message() default "error.timestamp";
+@Constraint(validatedBy = DayValidator.class)
+public @interface Day {
+	String message() default "error.day";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 }
