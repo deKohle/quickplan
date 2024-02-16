@@ -1,9 +1,7 @@
 package de.core.quickplan.controller;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import de.core.quickplan.domain.Month;
 import de.core.quickplan.domain.db.Appointment;
+import de.core.quickplan.service.creator.SiteCreator;
 import de.core.quickplan.service.inter.IAppointmentService;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * the way to view an calendar
@@ -36,15 +36,14 @@ public class ShowAppointmentsController {
 	private IAppointmentService dateService;
 	
 	@RequestMapping(path=CALENDAR_URI, method=RequestMethod.GET)
-	public ModelAndView calendar(@RequestParam(required = false) Integer year, @RequestParam(required = false) Integer month)
+	public ModelAndView calendar(@RequestParam(required = false) Integer year, 
+			@RequestParam(required = false) Integer month, HttpServletRequest request)
 	{
 		logger.trace("loading the calendar");
 		Month calendar = getMonth(year,month);
 		List<Appointment> dates = dateService.find(calendar.start(),calendar.end());
 		calendar.addAppointments(dates);
-		Map<String,Object> data = new HashMap<String,Object>();
-		data.put("calendar", calendar);
-		return new ModelAndView("calendar",data);
+		return SiteCreator.getCalendar(calendar, request);
 	}
 
 	/**

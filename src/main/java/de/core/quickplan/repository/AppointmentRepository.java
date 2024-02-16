@@ -13,7 +13,7 @@ import de.core.quickplan.domain.db.Appointment;
 @Repository
 public interface AppointmentRepository extends DefaultRepository<Appointment,UUID> {
 
-	@Query("SELECT a FROM Appointment a WHERE a.begin < :end AND a.end > :start")
+	@Query("SELECT a FROM Appointment a WHERE a.begin <= :end AND a.end >= :start")
 	List<Appointment> findAll(@Param("start") Timestamp start, @Param("end") Timestamp end);
 
 }

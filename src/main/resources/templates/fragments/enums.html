@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<div th:fragment="languages()" class="">
+    <div class="">
+   		<select onchange="window.location=this.options[this.selectedIndex].value" class="">
+   			<option th:each="language : ${T(de.core.quickplan.enums.SelectableLanguage).values()}"
+   				 th:id="${language}" th:value="${requestString}+'?language='+${language.fileEnding}" th:selected="#{locale.language} == ${language.fileEnding}" 
+   				 th:text="#{__${language.displayName}__}" class="">
+   		</select>
+	</div>
+</div>
+</body>
+</html>

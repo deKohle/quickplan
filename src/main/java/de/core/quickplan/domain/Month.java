@@ -80,6 +80,34 @@ public class Month {
 		return month.atEndOfMonth().atTime(LocalTime.MAX);
 	}
 	/**
+	 * @return the year number of the next month
+	 */
+	public int getNextMonthYear()
+	{
+		return month.plusMonths(1).getYear();
+	}
+	/**
+	 * @return the year number of the previous month
+	 */
+	public int getPreviousMonthYear()
+	{
+		return month.minusMonths(1).getYear();
+	}
+	/**
+	 * @return the month number of the next month
+	 */
+	public int getNextMonth()
+	{
+		return month.plusMonths(1).getMonthValue();
+	}
+	/**
+	 * @return the month number of the previous month
+	 */
+	public int getPreviousMonth()
+	{
+		return month.minusMonths(1).getMonthValue();
+	}
+	/**
 	 * @return the year this month is inside
 	 */
 	public int getYear()

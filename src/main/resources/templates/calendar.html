@@ -13,11 +13,13 @@
 			<tbody>
 				<tr th:each="week: ${calendar.weeks}">
 					<td th:each="day: ${week.days}">
-						<i th:unless="${day.unfocused}" th:text="${day.dayOfMonth}"></i>
+						<p th:unless="${day.unfocused}" th:text="${day.dayOfMonth}"></p>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+		<a th:href="${requestString}+'?year='+${calendar.previousMonthYear}+'&month='+${calendar.previousMonth}">&#60;-</a>
+		<a th:href="${requestString}+'?year='+${calendar.nextMonthYear}+'&month='+${calendar.nextMonth}">-&#62;</a>
 	</main>
 	<div layout:fragment="additionalScript">
 	</div>
