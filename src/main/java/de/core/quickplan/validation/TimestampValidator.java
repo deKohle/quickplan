@@ -15,6 +15,10 @@ public class TimestampValidator implements ConstraintValidator<Timestamp, String
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		try {
+			if(value == null || value.isBlank())
+			{
+				return true;
+			}
 			TimeService.timestamp(value);
 			return true;
 		}

@@ -10,6 +10,7 @@ import jakarta.validation.Payload;
 
 /**
  * annotates an field as an time-stamp-string
+ * use NotBlank if you want to check this case
  * 
  * @author Sebastian Kohler
  *
