@@ -16,6 +16,7 @@ import de.core.quickplan.domain.Month;
 import de.core.quickplan.domain.db.Appointment;
 import de.core.quickplan.service.creator.SiteCreator;
 import de.core.quickplan.service.inter.IAppointmentService;
+import de.core.quickplan.service.misc.RedirectService;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
@@ -34,6 +35,13 @@ public class ShowAppointmentsController {
 	
 	@Autowired
 	private IAppointmentService dateService;
+	
+	@RequestMapping(path="/", method=RequestMethod.GET)
+	public ModelAndView home(HttpServletRequest request)
+	{
+		logger.trace("the main page");
+		return RedirectService.redirect(CALENDAR_URI);
+	}
 	
 	@RequestMapping(path=CALENDAR_URI, method=RequestMethod.GET)
 	public ModelAndView calendar(@RequestParam(required = false) Integer year, 

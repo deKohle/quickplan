@@ -7,19 +7,40 @@
 <head>
 <body>
 	<main layout:fragment="content">
-		<h2 th:text="${calendar.year}"></h2>
-		<h2 th:text="#{__${calendar.monthI18n}__}"></h2>
-		<table>
-			<tbody>
-				<tr th:each="week: ${calendar.weeks}">
-					<td th:each="day: ${week.days}">
-						<p th:unless="${day.unfocused}" th:text="${day.dayOfMonth}"></p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<a th:href="${requestString}+'?year='+${calendar.previousMonthYear}+'&month='+${calendar.previousMonth}">&#60;-</a>
-		<a th:href="${requestString}+'?year='+${calendar.nextMonthYear}+'&month='+${calendar.nextMonth}">-&#62;</a>
+		<h2 class="main-info" th:text="${calendar.year}"></h2>
+		<h2 class="main-info" th:text="#{__${calendar.monthI18n}__}"></h2>
+		<div class="wrapper">
+			<header>
+				<a th:href="${requestString}+'?year='+${calendar.previousMonthYear}+'&month='+${calendar.previousMonth}" 
+					class="icons">
+					<i class="fa-solid fa-chevron-left"></i>
+				</a>
+				<a th:href="${requestString}+'?year='+${calendar.nextMonthYear}+'&month='+${calendar.nextMonth}" 
+					class="icons">
+					<i class="fa-solid fa-chevron-right"></i>
+				</a>
+			</header>
+			<table class="calendar">
+				<thead class="weeks">
+					<tr>
+						<td th:text="#{weekday.first}"></td>
+						<td th:text="#{weekday.second}"></td>
+						<td th:text="#{weekday.third}"></td>
+						<td th:text="#{weekday.fourth}"></td>
+						<td th:text="#{weekday.fifth}"></td>
+						<td th:text="#{weekday.sixth}"></td>
+						<td th:text="#{weekday.seventh}"></td>
+					</tr>
+				</thead>
+				<tbody class="days">
+					<tr th:each="week: ${calendar.weeks}">
+						<td th:each="day: ${week.days}">
+							<p th:unless="${day.unfocused}" th:text="${day.dayOfMonth}"></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</main>
 	<div layout:fragment="additionalScript">
 	</div>

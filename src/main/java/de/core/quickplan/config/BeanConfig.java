@@ -4,6 +4,9 @@ import java.util.Locale;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -18,9 +21,19 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
  *
  */
 @Configuration
-//needed for locale-resolver
-@EnableWebMvc
+@EnableWebSecurity
+//once needed for locale-resolver (now just prevents the static-endpoint)
+//@EnableWebMvc
 public class BeanConfig implements WebMvcConfigurer {
+	
+	@Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
+	{
+		// use when no login needed
+		http.authorizeHttpRequests(auth -> auth.anyRequest().anonymous());
+		http.csrf(csrf -> csrf.disable());
+		return http.build();
+	}
 	
 	/**
 	 * to allow for i18n it configures, that the locale gets saved for the session<br>
