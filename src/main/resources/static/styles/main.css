@@ -14,6 +14,17 @@ body{
   min-height: 100vh;
   background: lightblue;
 }
+#main-navbar {
+	position: absolute;
+	background: #878787;
+	display: flex;
+	width: 100%;
+	top: 0;
+	left: 0;
+}
+.navbar-content {
+	margin-left: 10px;
+}
 .wrapper{
   width: 450px;
   background: #fff;
@@ -26,10 +37,10 @@ body{
   padding: 25px 30px 10px;
   justify-content: space-between;
 }
-header .icons{
+.icons{
   display: flex;
 }
-header .icons a{
+.icons a{
   height: 38px;
   width: 38px;
   margin: 0 1px;
@@ -40,19 +51,28 @@ header .icons a{
   font-size: 1.9rem;
   user-select: none;
   border-radius: 50%;
+  text-decoration: none;
 }
 .icons a:last-child{
   margin-right: -10px;
 }
-header .icons a:hover{
+.icons a:hover{
   background: #f2f2f2;
 }
-h2 .main-info{
+.main-info h2{
   font-size: 1.45rem;
   font-weight: 500;
 }
+.main-nav-info{
+	color: black;
+	text-decoration: none;
+}
+.main-nav-info:hover{
+	color: #f2f2f2;
+}
 .calendar{
   padding: 20px;
+  width: 100%;
 }
 .calendar tr{
   display: flex;
@@ -72,19 +92,19 @@ h2 .main-info{
   font-weight: 500;
   cursor: default;
 }
-.calendar .days td{
+.calendar .days p{
   z-index: 1;
   cursor: pointer;
   position: relative;
   margin-top: 30px;
 }
-.days td.inactive{
+.days p.inactive{
   color: #aaa;
 }
-.days td.active{
+.days p.active{
   color: #fff;
 }
-.days td::before{
+.days p::before{
   position: absolute;
   content: "";
   left: 50%;
@@ -95,9 +115,9 @@ h2 .main-info{
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
-.days td.active::before{
+.days p.active::before{
   background: lightblue;
 }
-.days td:not(.active):hover::before{
+.days p:not(.active):hover::before{
   background: #f2f2f2;
 }

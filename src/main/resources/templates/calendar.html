@@ -10,13 +10,11 @@
 		<h2 class="main-info" th:text="${calendar.year}"></h2>
 		<h2 class="main-info" th:text="#{__${calendar.monthI18n}__}"></h2>
 		<div class="wrapper">
-			<header>
-				<a th:href="${requestString}+'?year='+${calendar.previousMonthYear}+'&month='+${calendar.previousMonth}" 
-					class="icons">
+			<header class="icons">
+				<a th:href="${requestString}+'?year='+${calendar.previousMonthYear}+'&month='+${calendar.previousMonth}" >
 					<i class="fa-solid fa-chevron-left"></i>
 				</a>
-				<a th:href="${requestString}+'?year='+${calendar.nextMonthYear}+'&month='+${calendar.nextMonth}" 
-					class="icons">
+				<a th:href="${requestString}+'?year='+${calendar.nextMonthYear}+'&month='+${calendar.nextMonth}">
 					<i class="fa-solid fa-chevron-right"></i>
 				</a>
 			</header>

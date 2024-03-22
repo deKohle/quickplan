@@ -5,10 +5,10 @@
 <body>
 <!-- Navigation -->
 <nav th:fragment="navigation()" class="navbar" id="main-navbar">
-	<div class="">
-		<h3>
-			<a href="/">Home</a>
-  		</h3>
+	<h3 class="navbar-content">
+		<a class="main-nav-info" href="/calendar" th:text="#{home.text}"></a>
+  	</h3>
+  	<div class="navbar-content">
   		<th:block th:replace="~{fragments/enums :: languages()}"></th:block>
   	</div>
 </nav>
