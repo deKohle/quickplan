@@ -53,6 +53,7 @@ public class BeanConfig implements WebMvcConfigurer {
 	public LocaleChangeInterceptor localeChangeInterceptor() {
 		LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
 		lci.setParamName("language");
+		lci.setIgnoreInvalidLocale(false);
 		return lci;
 	}
 	

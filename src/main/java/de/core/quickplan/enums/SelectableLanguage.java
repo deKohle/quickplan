@@ -15,7 +15,15 @@ public enum SelectableLanguage {
 	/**
 	 * English
 	 */
-	ENGLISH("en","language.english");
+	ENGLISH("en","language.english"),
+	/**
+	 * Spanish
+	 */
+	SPANISH("es","language.spanish"),
+	/**
+	 * French
+	 */
+	FRENCH("fr","language.french");
 	/**
 	 * the string needed as language-param for loading the required file
 	 */
