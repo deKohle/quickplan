@@ -108,7 +108,7 @@ public class AppointmentController {
 		return ResponseService.success();
 	}
 	
-	@RequestMapping(path="/test", method=RequestMethod.GET)
+	//@RequestMapping(path="/test", method=RequestMethod.GET)
 	public ResponseEntity<Void> test()
 	{
 		logger.trace("test");

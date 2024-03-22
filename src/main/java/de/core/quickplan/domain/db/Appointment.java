@@ -59,6 +59,12 @@ public class Appointment {
 	private String description;
 	
 	/**
+	 * used by Spring-JPA
+	 */
+	public Appointment() {
+		super();
+	}
+	/**
 	 * only used for creating a new appointment
 	 * @param app
 	 */

@@ -10,34 +10,62 @@
 		<h2 class="main-info" th:text="${calendar.year}"></h2>
 		<h2 class="main-info" th:text="#{__${calendar.monthI18n}__}"></h2>
 		<div class="wrapper">
-			<header class="icons">
-				<a th:href="${requestString}+'?year='+${calendar.previousMonthYear}+'&month='+${calendar.previousMonth}" >
-					<i class="fa-solid fa-chevron-left"></i>
-				</a>
-				<a th:href="${requestString}+'?year='+${calendar.nextMonthYear}+'&month='+${calendar.nextMonth}">
-					<i class="fa-solid fa-chevron-right"></i>
-				</a>
-			</header>
-			<table class="calendar">
-				<thead class="weeks">
-					<tr>
-						<td th:text="#{weekday.first}"></td>
-						<td th:text="#{weekday.second}"></td>
-						<td th:text="#{weekday.third}"></td>
-						<td th:text="#{weekday.fourth}"></td>
-						<td th:text="#{weekday.fifth}"></td>
-						<td th:text="#{weekday.sixth}"></td>
-						<td th:text="#{weekday.seventh}"></td>
-					</tr>
-				</thead>
-				<tbody class="days">
-					<tr th:each="week: ${calendar.weeks}">
-						<td th:each="day: ${week.days}">
-							<p th:unless="${day.unfocused}" th:text="${day.dayOfMonth}"></p>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="calendar-front">
+				<header class="icons">
+					<a th:href="${requestString}+'?year='+${calendar.previousMonthYear}+'&month='+${calendar.previousMonth}" >
+						<i class="fa-solid fa-chevron-left"></i>
+					</a>
+					<a th:href="${requestString}+'?year='+${calendar.nextMonthYear}+'&month='+${calendar.nextMonth}">
+						<i class="fa-solid fa-chevron-right"></i>
+					</a>
+				</header>
+				<table class="calendar">
+					<thead class="weeks">
+						<tr>
+							<td th:text="#{weekday.first}"></td>
+							<td th:text="#{weekday.second}"></td>
+							<td th:text="#{weekday.third}"></td>
+							<td th:text="#{weekday.fourth}"></td>
+							<td th:text="#{weekday.fifth}"></td>
+							<td th:text="#{weekday.sixth}"></td>
+							<td th:text="#{weekday.seventh}"></td>
+						</tr>
+					</thead>
+					<tbody class="days">
+						<tr th:each="week: ${calendar.weeks}">
+							<td th:each="day: ${week.days}">
+								<div>
+									<p class="show-dates" th:unless="${day.unfocused}" th:text="${day.dayOfMonth}"></p>
+									<div hidden="true">
+										<div th:each="date: ${day.dates}">
+											<div class="date-identifier" th:text="${date.identifier}"></div>
+											<div class="date-begin" th:text="${date.begin}"></div>
+											<div class="date-end" th:text="${date.end}"></div>
+											<div class="date-description" th:text="${date.description}"></div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="calendar calendar-back">
+				<div class="info">
+					<div class="date">
+						
+					</div>
+				</div>
+
+				<div class="actions">
+					<button class="save">
+						Save <i class="ion-checkmark"></i>
+					</button>
+					<button class="dismiss">
+						Dismiss <i class="ion-android-close"></i>
+					</button>
+				</div>
+			</div>
 		</div>
 	</main>
 	<div layout:fragment="additionalScript">
