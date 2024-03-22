@@ -36,13 +36,26 @@
 							<td th:each="day: ${week.days}">
 								<div>
 									<p class="show-dates" th:unless="${day.unfocused}" th:text="${day.dayOfMonth}"></p>
-									<div hidden="true">
-										<div th:each="date: ${day.dates}">
-											<div class="date-identifier" th:text="${date.identifier}"></div>
-											<div class="date-begin" th:text="${date.begin}"></div>
-											<div class="date-end" th:text="${date.end}"></div>
-											<div class="date-description" th:text="${date.description}"></div>
+									<div hidden="true" class="dates-of-day">
+										<div th:text="${calendar.year +'-'+ calendar.month +'-'+ day.dayOfMonth}"></div>
+										<div>
+											<form th:each="date: ${day.dates}" method="put" action="/appointment">
+												<input type="text" name="description" th:value="${date.description}"/>
+												<input type="hidden" name="begin" th:value="${date.begin}"/>
+												<input type="hidden" name="end" th:value="${date.end}"/>
+												<input type="hidden" name="identifier" th:value="${date.identifier}"/>
+												<button class="update-date" type="button">
+													<i class="fa-solid fa-floppy-disk"></i>
+												</button>
+											</form>
 										</div>
+										<form method="post" action="/appointment">
+											<input type="text" name="description"/>
+											<input type="hidden" name="date" th:value="${calendar.year +'-'+ calendar.month +'-'+ day.dayOfMonth}"/>
+											<button class="add-date" type="button">
+												<i class="fa-solid fa-plus"></i>
+											</button>
+										</form>
 									</div>
 								</div>
 							</td>
@@ -51,18 +64,10 @@
 				</table>
 			</div>
 			<div class="calendar calendar-back">
-				<div class="info">
-					<div class="date">
-						
-					</div>
-				</div>
-
+				<div class="fillable"></div>
 				<div class="actions">
-					<button class="save">
-						Save <i class="ion-checkmark"></i>
-					</button>
-					<button class="dismiss">
-						Dismiss <i class="ion-android-close"></i>
+					<button class="close">
+						<i class="fa-solid fa-x"></i>
 					</button>
 				</div>
 			</div>

@@ -74,6 +74,10 @@ public class Day {
 		return unfocused;
 	}
 	public List<AppointmentDto> getDates() {
+		if(!datesLoaded)
+		{
+			throw new IllegalStateException("the dates were not loaded");
+		}
 		return dates;
 	}
 	public boolean isDatesLoaded() {

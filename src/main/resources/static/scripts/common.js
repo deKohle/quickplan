@@ -19,15 +19,26 @@ var swapper = {
 		objects.container.toggleClass('flip');
 		currentSide.fadeOut(250,function() {
     		desiredSide.fadeIn(250);
-		}); 
-		/*currentSide.fadeOut(250);
-		//currentSide.hide();
-		desiredSide.fadeIn(250);
-		//desiredSide.show();*/
+		});
+	},
+	
+	fillForm: function(obj) {
+		dates = obj.currentTarget.parentNode.getElementsByClassName('dates-of-day')[0];
+		newThings = dates.cloneNode(true);
+		addTo = objects.form.get(0).getElementsByClassName('fillable')[0];
+		try {addTo.removeChild(addTo.lastChild);}catch(e){}
+		newThings.hidden = false;
+		instance.addNewListeners(newThings);
+		addTo.appendChild(newThings);
+	},
+	
+	addNewListeners: function(obj) {
+		
 	},
 
 	addListeners: function() {
-		objects.days.on('click', function(){
+		objects.days.on('click', function(obj){
+			instance.fillForm(obj);
 			instance.swap(objects.calendar, objects.form);
 		});
 

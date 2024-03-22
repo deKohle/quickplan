@@ -115,6 +115,13 @@ public class Month {
 		return month.getYear();
 	}
 	/**
+	 * @return the number of the month (May = 5)
+	 */
+	public int getMonth()
+	{
+		return month.getMonthValue();
+	}
+	/**
 	 * @return the string to get the text from the message.properties
 	 */
 	public String getMonthI18n()
