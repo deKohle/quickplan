@@ -45,9 +45,9 @@
 												</div>
 											</div>
 											<form class="new-date-form">
-												<input type="text" name="description"/>
+												<input type="text" name="description" class="backside-input"/>
 												<input type="hidden" name="date" th:value="${calendar.year +'-'+ calendar.monthNumberAsString +'-'+ day.dayOfMonth}"/>
-												<button class="add-date" type="button">
+												<button class="add-date action-button" type="button">
 													<i class="fa-solid fa-plus"></i>
 												</button>
 											</form>
@@ -61,7 +61,7 @@
 				<div class="calendar calendar-back">
 					<div class="fillable"></div>
 					<div class="actions">
-						<button class="close">
+						<button class="action-button">
 							<i class="fa-solid fa-x"></i>
 						</button>
 					</div>

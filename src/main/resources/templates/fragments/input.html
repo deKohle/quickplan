@@ -5,14 +5,14 @@
 <body>
 
 <form th:fragment="date(date)">
-	<input type="text" name="description" th:value="${date.description}"/>
+	<input type="text" name="description" th:value="${date.description}" class="backside-input"/>
 	<input type="hidden" name="begin" th:value="${date.begin}"/>
 	<input type="hidden" name="end" th:value="${date.end}"/>
 	<input type="hidden" name="identifier" th:value="${date.identifier}"/>
-	<button class="update-date" type="button">
+	<button class="update-date action-button" type="button">
 		<i class="fa-solid fa-floppy-disk"></i>
 	</button>
-	<button class="delete-date" type="button">
+	<button class="delete-date action-button" type="button">
 		<i class="fa-solid fa-trash"></i>
 	</button>
 </form>
