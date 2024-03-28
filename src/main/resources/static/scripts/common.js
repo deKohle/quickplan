@@ -44,9 +44,28 @@ var swapper = {
                 },
                 success: function(data) {
 					back = document.getElementsByClassName("calendar-back")[0];
-					back.getElementsByClassName("dates-of-day-inner")[0].innerHTML += data;
+					//back.getElementsByClassName("dates-of-day-inner")[0].innerHTML += data;
+					const node = new DOMParser().parseFromString(data, "text/html").body.firstElementChild;
+					back.getElementsByClassName("dates-of-day-inner")[0].appendChild(node);
 					form = back.getElementsByClassName("new-date-form")[0];
 					form.description.value = "";
+					//because the html got changed
+					//instance.addNewListeners(newThings);
+                }
+			});
+		});
+		$(obj).find(".delete-date").on('click', function(obj){
+			//obj.currentTarget.form.submit();
+			$.ajax({
+				url: '/appointment',
+				type: 'delete',
+				actedUpon: obj,
+				data: $(obj.currentTarget.form).serialize(),
+				failure: function(data) {
+					//TODO
+                },
+                success: function(data) {
+					this.actedUpon.currentTarget.parentNode.remove()
                 }
 			});
 		});
