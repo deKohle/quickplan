@@ -33,7 +33,31 @@ var swapper = {
 	},
 	
 	addNewListeners: function(obj) {
-		
+		$(obj).find(".add-date").on('click', function(obj){
+			//obj.currentTarget.form.submit();
+			$.ajax({
+				url: '/appointment',
+				type: 'post',
+				data: $(obj.currentTarget.form).form.serialize(),
+				failure: function(data) {
+					//TODO
+                }
+			});
+		});
+		$(obj).find(".update-date").on('click', function(obj){
+			//obj.currentTarget.form.submit();
+			$.ajax({
+				url: '/appointment',
+				type: 'put',
+				data: $(obj.currentTarget.form).serialize(),
+				success: function(data) {
+					//TODO
+                },
+                failure: function(data) {
+					//TODO
+                }
+			});
+		});
 	},
 
 	addListeners: function() {

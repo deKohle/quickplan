@@ -1,5 +1,6 @@
 package de.core.quickplan.service.inter;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -40,4 +41,17 @@ public interface IAppointmentService {
 	 * @return the appointments for display
 	 */
 	public List<Appointment> find(LocalDateTime start, LocalDateTime end);
+	/**
+	 * reads the appointment
+	 * @param uuid
+	 * @return the appointment of the uuid
+	 */
+	public AppointmentDto read(String uuid);
+	/**
+	 * loads all appointments inside this time frame
+	 * @param start
+	 * @param end
+	 * @return the appointments for display
+	 */
+	public List<Appointment> find(Timestamp start, Timestamp end);
 }

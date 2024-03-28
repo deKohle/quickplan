@@ -68,9 +68,23 @@ public class AppointmentService implements IAppointmentService {
 		dateRepo.deleteById(UUID.fromString(uuid));
 	}
 
+	/*@Override
+	public List<Appointment> find(String start, String end) {
+		return dateRepo.findAll(start, end);
+	}*/
+
+	@Override
+	public AppointmentDto read(String uuid) {
+		return new AppointmentDto(dateRepo.findById(UUID.fromString(uuid)).get());
+	}
+	
 	@Override
 	public List<Appointment> find(LocalDateTime start, LocalDateTime end) {
 		return dateRepo.findAll(Timestamp.valueOf(start), Timestamp.valueOf(end));
+	}
+	@Override
+	public List<Appointment> find(Timestamp start, Timestamp end) {
+		return dateRepo.findAll(start, end);
 	}
 
 }

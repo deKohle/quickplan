@@ -1,6 +1,8 @@
 package de.core.quickplan.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -8,15 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.core.quickplan.domain.Month;
 import de.core.quickplan.domain.dto.AppointmentDto;
+import de.core.quickplan.service.creator.SiteCreator;
 import de.core.quickplan.service.inter.IAppointmentService;
+import de.core.quickplan.service.misc.IterableService;
 import de.core.quickplan.service.misc.ResponseService;
+import de.core.quickplan.service.misc.TimeService;
 import jakarta.validation.Valid;
 
 /**
@@ -42,7 +46,7 @@ public class AppointmentController {
 	 * @return
 	 */
 	@RequestMapping(path=ENDPOINT_URI, method=RequestMethod.POST)
-	public ResponseEntity<Void> createAppointment(@Valid @ModelAttribute("appointment") AppointmentDto app, 
+	public ResponseEntity<?> createAppointment(@Valid @ModelAttribute("appointment") AppointmentDto app, 
 			BindingResult result)
 	{
 		logger.trace("CREATE an new appointment");
@@ -59,7 +63,7 @@ public class AppointmentController {
 			logger.info("could not create an appointment");
 			return ResponseService.error();
 		}
-		return ResponseService.success();
+		return ResponseService.success(ResponseService.parse(SiteCreator.dateFragment(app)));
 	}
 	
 	/**
@@ -89,16 +93,48 @@ public class AppointmentController {
 	}
 	
 	/**
+	 * used to update an new appointment
+	 * @param app
+	 * @return
+	 */
+	@RequestMapping(path=ENDPOINT_URI, method=RequestMethod.GET)
+	public List<AppointmentDto> readAppointment(@Valid @ModelAttribute("appointment") AppointmentDto app)
+	{
+		try {
+			if(app.getIdentifier() != null)
+			{
+				logger.trace("READING an single appointment");
+				AppointmentDto result = dateService.read(app.getIdentifier());
+				List<AppointmentDto> list = new ArrayList<AppointmentDto>();
+				list.add(result);
+				return list;
+			}
+			logger.trace("READING multiple appointments");
+			return IterableService.convert(
+					dateService.find(TimeService.timestamp(app.getBegin()),TimeService.timestamp(app.getEnd()))
+					,AppointmentDto::new
+			);
+		}
+		catch(Exception e)
+		{
+			logger.info("could not read appointments");
+			return null;
+		}
+	}
+	
+	/**
 	 * used to delete an appointment
 	 * @param app
 	 * @return
 	 */
-	@RequestMapping(path=ENDPOINT_URI+"/delete/{uuid}", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteAppointment(@PathVariable("uuid") String uuid)
+	//@RequestMapping(path=ENDPOINT_URI+"/delete/{uuid}", method=RequestMethod.DELETE)
+	//public ResponseEntity<Void> deleteAppointment(@PathVariable("uuid") String uuid)
+	@RequestMapping(path=ENDPOINT_URI, method=RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteAppointment(@ModelAttribute("appointment") AppointmentDto app)
 	{
 		logger.trace("DELETE an appointment");
 		try {
-			dateService.delete(uuid);
+			dateService.delete(app.getIdentifier());
 		}
 		catch(Exception e)
 		{

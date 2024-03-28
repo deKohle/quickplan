@@ -121,6 +121,15 @@ public class Month {
 	{
 		return month.getMonthValue();
 	}
+	public String getMonthNumberAsString()
+	{
+		int monthValue = month.getMonthValue();
+		if(monthValue<10)
+		{
+			return "0"+monthValue;
+		}
+		return monthValue+"";
+	}
 	/**
 	 * @return the string to get the text from the message.properties
 	 */

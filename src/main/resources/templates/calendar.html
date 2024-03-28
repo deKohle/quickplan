@@ -37,21 +37,13 @@
 								<div>
 									<p class="show-dates" th:unless="${day.unfocused}" th:text="${day.dayOfMonth}"></p>
 									<div hidden="true" class="dates-of-day">
-										<div th:text="${calendar.year +'-'+ calendar.month +'-'+ day.dayOfMonth}"></div>
-										<div>
-											<form th:each="date: ${day.dates}" method="put" action="/appointment">
-												<input type="text" name="description" th:value="${date.description}"/>
-												<input type="hidden" name="begin" th:value="${date.begin}"/>
-												<input type="hidden" name="end" th:value="${date.end}"/>
-												<input type="hidden" name="identifier" th:value="${date.identifier}"/>
-												<button class="update-date" type="button">
-													<i class="fa-solid fa-floppy-disk"></i>
-												</button>
-											</form>
+										<div th:text="${calendar.year +'-'+ calendar.monthNumberAsString +'-'+ day.dayOfMonth}"></div>
+										<div th:each="date: ${day.dates}">
+											<th:block th:replace="~{fragments/input :: date(${date})}"></th:block>
 										</div>
 										<form method="post" action="/appointment">
 											<input type="text" name="description"/>
-											<input type="hidden" name="date" th:value="${calendar.year +'-'+ calendar.month +'-'+ day.dayOfMonth}"/>
+											<input type="hidden" name="date" th:value="${calendar.year +'-'+ calendar.monthNumberAsString +'-'+ day.dayOfMonth}"/>
 											<button class="add-date" type="button">
 												<i class="fa-solid fa-plus"></i>
 											</button>

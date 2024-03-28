@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<form th:fragment="date(date)">
+	<input type="text" name="description" th:value="${date.description}"/>
+	<input type="hidden" name="begin" th:value="${date.begin}"/>
+	<input type="hidden" name="end" th:value="${date.end}"/>
+	<input type="hidden" name="identifier" th:value="${date.identifier}"/>
+	<button class="update-date" type="button">
+		<i class="fa-solid fa-floppy-disk"></i>
+	</button>
+</form>
+
+</body>
+</html>
