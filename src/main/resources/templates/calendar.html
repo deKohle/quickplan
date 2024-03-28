@@ -7,62 +7,64 @@
 <head>
 <body>
 	<main layout:fragment="content">
-		<h2 class="main-info" th:text="${calendar.year}"></h2>
-		<h2 class="main-info" th:text="#{__${calendar.monthI18n}__}"></h2>
-		<div class="wrapper">
-			<div class="calendar-front">
-				<header class="icons">
-					<a th:href="${requestString}+'?year='+${calendar.previousMonthYear}+'&month='+${calendar.previousMonth}" >
-						<i class="fa-solid fa-chevron-left"></i>
-					</a>
-					<a th:href="${requestString}+'?year='+${calendar.nextMonthYear}+'&month='+${calendar.nextMonth}">
-						<i class="fa-solid fa-chevron-right"></i>
-					</a>
-				</header>
-				<table class="calendar">
-					<thead class="weeks">
-						<tr>
-							<td th:text="#{weekday.first}"></td>
-							<td th:text="#{weekday.second}"></td>
-							<td th:text="#{weekday.third}"></td>
-							<td th:text="#{weekday.fourth}"></td>
-							<td th:text="#{weekday.fifth}"></td>
-							<td th:text="#{weekday.sixth}"></td>
-							<td th:text="#{weekday.seventh}"></td>
-						</tr>
-					</thead>
-					<tbody class="days">
-						<tr th:each="week: ${calendar.weeks}">
-							<td th:each="day: ${week.days}">
-								<div>
-									<p class="show-dates" th:unless="${day.unfocused}" th:text="${day.dayOfMonth}"></p>
-									<div hidden="true" class="dates-of-day">
-										<div th:text="${day.dayOfMonth + '. '} + #{__${calendar.monthI18n}__} + ${' ' + calendar.year}"></div>
-										<div class="dates-of-day-inner">
-											<div th:each="date: ${day.dates}">
-												<th:block th:replace="~{fragments/input :: date(${date})}"></th:block>
+		<div class="outer-wrapper">
+			<h2 class="main-info" th:text="${calendar.year}"></h2>
+			<h2 class="main-info" th:text="#{__${calendar.monthI18n}__}"></h2>
+			<div class="wrapper">
+				<div class="calendar-front">
+					<header class="icons">
+						<a th:href="${requestString}+'?year='+${calendar.previousMonthYear}+'&month='+${calendar.previousMonth}" >
+							<i class="fa-solid fa-chevron-left"></i>
+						</a>
+						<a th:href="${requestString}+'?year='+${calendar.nextMonthYear}+'&month='+${calendar.nextMonth}">
+							<i class="fa-solid fa-chevron-right"></i>
+						</a>
+					</header>
+					<table class="calendar">
+						<thead class="weeks">
+							<tr>
+								<td th:text="#{weekday.first}"></td>
+								<td th:text="#{weekday.second}"></td>
+								<td th:text="#{weekday.third}"></td>
+								<td th:text="#{weekday.fourth}"></td>
+								<td th:text="#{weekday.fifth}"></td>
+								<td th:text="#{weekday.sixth}"></td>
+								<td th:text="#{weekday.seventh}"></td>
+							</tr>
+						</thead>
+						<tbody class="days">
+							<tr th:each="week: ${calendar.weeks}">
+								<td th:each="day: ${week.days}">
+									<div>
+										<p class="show-dates" th:unless="${day.unfocused}" th:text="${day.dayOfMonth}"></p>
+										<div hidden="true" class="dates-of-day">
+											<div th:text="${day.dayOfMonth + '. '} + #{__${calendar.monthI18n}__} + ${' ' + calendar.year}"></div>
+											<div class="dates-of-day-inner">
+												<div th:each="date: ${day.dates}">
+													<th:block th:replace="~{fragments/input :: date(${date})}"></th:block>
+												</div>
 											</div>
+											<form class="new-date-form">
+												<input type="text" name="description"/>
+												<input type="hidden" name="date" th:value="${calendar.year +'-'+ calendar.monthNumberAsString +'-'+ day.dayOfMonth}"/>
+												<button class="add-date" type="button">
+													<i class="fa-solid fa-plus"></i>
+												</button>
+											</form>
 										</div>
-										<form class="new-date-form">
-											<input type="text" name="description"/>
-											<input type="hidden" name="date" th:value="${calendar.year +'-'+ calendar.monthNumberAsString +'-'+ day.dayOfMonth}"/>
-											<button class="add-date" type="button">
-												<i class="fa-solid fa-plus"></i>
-											</button>
-										</form>
 									</div>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="calendar calendar-back">
-				<div class="fillable"></div>
-				<div class="actions">
-					<button class="close">
-						<i class="fa-solid fa-x"></i>
-					</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="calendar calendar-back">
+					<div class="fillable"></div>
+					<div class="actions">
+						<button class="close">
+							<i class="fa-solid fa-x"></i>
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -66,6 +66,18 @@ var swapper = {
                 }
 			});
 		});
+		//self.currentTarget == document.getElementsByTagName('main')[0];
+		$("main").one("click", instance.returnFromBackground);
+		$(".wrapper").on("click", function(evt) {
+		    if (evt.stopPropagation) {evt.stopPropagation();}
+		    else {evt.cancelBubble=true;}
+		    return false;
+		});
+	},
+	
+	returnFromBackground: function() {
+		objects.form.hide();
+		instance.swap(objects.form, objects.calendar);
 	},
 
 	addListeners: function() {
@@ -75,8 +87,9 @@ var swapper = {
 		});
 
 		objects.buttons.on('click', function(){
-			objects.form.hide();
-			instance.swap(objects.form, objects.calendar);
+			$("main").off("click");
+			//document.getElementsByTagName('main')[0].removeEventListener("click",instance.returnFromBackground);
+			instance.returnFromBackground();
 		});
 	}
 }
