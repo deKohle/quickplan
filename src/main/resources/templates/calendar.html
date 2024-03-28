@@ -37,6 +37,7 @@
 								<td th:each="day: ${week.days}">
 									<div>
 										<p class="show-dates" th:unless="${day.unfocused}" th:text="${day.dayOfMonth}"></p>
+										<i class="date-underline" th:if="${#lists.size(day.dates) > 1}"></i>
 										<div hidden="true" class="dates-of-day">
 											<div th:text="${day.dayOfMonth + '. '} + #{__${calendar.monthI18n}__} + ${' ' + calendar.year}"></div>
 											<div class="dates-of-day-inner">
