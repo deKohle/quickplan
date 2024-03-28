@@ -37,11 +37,13 @@
 								<div>
 									<p class="show-dates" th:unless="${day.unfocused}" th:text="${day.dayOfMonth}"></p>
 									<div hidden="true" class="dates-of-day">
-										<div th:text="${calendar.year +'-'+ calendar.monthNumberAsString +'-'+ day.dayOfMonth}"></div>
-										<div th:each="date: ${day.dates}">
-											<th:block th:replace="~{fragments/input :: date(${date})}"></th:block>
+										<div th:text="${day.dayOfMonth + '. '} + #{__${calendar.monthI18n}__} + ${' ' + calendar.year}"></div>
+										<div class="dates-of-day-inner">
+											<div th:each="date: ${day.dates}">
+												<th:block th:replace="~{fragments/input :: date(${date})}"></th:block>
+											</div>
 										</div>
-										<form method="post" action="/appointment">
+										<form class="new-date-form">
 											<input type="text" name="description"/>
 											<input type="hidden" name="date" th:value="${calendar.year +'-'+ calendar.monthNumberAsString +'-'+ day.dayOfMonth}"/>
 											<button class="add-date" type="button">

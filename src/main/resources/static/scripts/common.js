@@ -38,9 +38,15 @@ var swapper = {
 			$.ajax({
 				url: '/appointment',
 				type: 'post',
-				data: $(obj.currentTarget.form).form.serialize(),
+				data: $(obj.currentTarget.form).serialize(),
 				failure: function(data) {
 					//TODO
+                },
+                success: function(data) {
+					back = document.getElementsByClassName("calendar-back")[0];
+					back.getElementsByClassName("dates-of-day-inner")[0].innerHTML += data;
+					form = back.getElementsByClassName("new-date-form")[0];
+					form.description.value = "";
                 }
 			});
 		});
@@ -49,9 +55,11 @@ var swapper = {
 			$.ajax({
 				url: '/appointment',
 				type: 'put',
+				actedUpon: obj,
 				data: $(obj.currentTarget.form).serialize(),
 				success: function(data) {
-					//TODO
+					//currently unnecessary, but maybe later the server changes some informations
+					this.actedUpon.currentTarget.form.description.value=data.description
                 },
                 failure: function(data) {
 					//TODO

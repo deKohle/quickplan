@@ -18,16 +18,18 @@ public interface IAppointmentService {
 	/**
 	 * creates an new appointment
 	 * @param app the appointment to save
+	 * @return 
 	 * @throws IllegalArgumentException if the appointment could not get created<br>
 	 * (because it may already exist)
 	 */
-	public void create(AppointmentDto app) throws IllegalArgumentException;
+	public AppointmentDto create(AppointmentDto app) throws IllegalArgumentException;
 	/**
 	 * updates an appointment
 	 * @param app the appointment to update
+	 * @return 
 	 * @throws IllegalArgumentException if the appointment does not exist or another error happened<br>
 	 */
-	public void update(AppointmentDto app) throws IllegalArgumentException;
+	public AppointmentDto update(AppointmentDto app) throws IllegalArgumentException;
 	/**
 	 * deletes the object behind the given uuid
 	 * @param uuid the uuid as an string

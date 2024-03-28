@@ -31,19 +31,19 @@ public class AppointmentService implements IAppointmentService {
 	private AppointmentRepository dateRepo;
 	
 	@Override
-	public void create(AppointmentDto app) throws IllegalArgumentException {
+	public AppointmentDto create(AppointmentDto app) throws IllegalArgumentException {
 		if(app.getIdentifier() != null && !app.getIdentifier().isBlank()) 
 		{
 			throw new IllegalArgumentException("an identifier was given, but it tries to create a new object");
 		}
-		dateRepo.save(new Appointment(app));
+		return new AppointmentDto(dateRepo.save(new Appointment(app)));
 	}
 
 	@Override
-	public void update(AppointmentDto app) throws IllegalArgumentException {
+	public AppointmentDto update(AppointmentDto app) throws IllegalArgumentException {
 		Appointment old = getAppointment(app.getIdentifier());
 		old.edit(app);
-		dateRepo.save(old);
+		return new AppointmentDto(dateRepo.save(old));
 	}
 
 	/**

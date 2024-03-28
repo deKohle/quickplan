@@ -56,14 +56,14 @@ public class AppointmentController {
 			return ResponseService.error();
 		}
 		try {
-			dateService.create(app);
+			AppointmentDto finalApp = dateService.create(app);
+			return ResponseService.success(ResponseService.extractBody(ResponseService.parse(SiteCreator.dateFragment(finalApp))));
 		}
 		catch(Exception e)
 		{
 			logger.info("could not create an appointment");
 			return ResponseService.error();
 		}
-		return ResponseService.success(ResponseService.parse(SiteCreator.dateFragment(app)));
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class AppointmentController {
 	 * @return
 	 */
 	@RequestMapping(path=ENDPOINT_URI, method=RequestMethod.PUT)
-	public ResponseEntity<Void> updateAppointment(@Valid @ModelAttribute("appointment") AppointmentDto app, 
+	public ResponseEntity<?> updateAppointment(@Valid @ModelAttribute("appointment") AppointmentDto app, 
 			BindingResult result)
 	{
 		logger.trace("UPDATE an appointment");
@@ -82,14 +82,14 @@ public class AppointmentController {
 			return ResponseService.error();
 		}
 		try {
-			dateService.update(app);
+			AppointmentDto finalApp = dateService.update(app);
+			return ResponseService.success(finalApp);
 		}
 		catch(Exception e)
 		{
 			logger.info("could not update an appointment");
 			return ResponseService.error();
 		}
-		return ResponseService.success();
 	}
 	
 	/**

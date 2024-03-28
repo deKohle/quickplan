@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
+import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 /**
@@ -40,9 +41,9 @@ public class ResponseService {
 		con.setLocale(LocaleContextHolder.getLocale());
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
-        resolver.setPrefix("templates/mail/");
+        resolver.setPrefix("templates/");
         resolver.setSuffix(".html");
-        resolver.setTemplateMode("HTML5");
+        resolver.setTemplateMode(TemplateMode.HTML);
         resolver.setOrder(1);
         resolver.setCacheable(true);
         templateEngine.addTemplateResolver(resolver);
@@ -56,5 +57,22 @@ public class ResponseService {
 	 */
 	public static <T> ResponseEntity<T> success(T body) {
 		return ResponseEntity.ok().body(body);
+	}
+	/**
+	 * extracts the body-content of this HTML-String
+	 * @param parse
+	 * @return null if &lt;body&gt; and &lt;/body don't exist exactly once
+	 */
+	public static String extractBody(String parse) {
+		String[] res = parse.split(RegexService.escape("<body>"));
+		if(res.length == 2)
+		{
+			res = res[1].split(RegexService.escape("</body>"));
+			if(res.length == 2)
+			{
+				return res[0];
+			}
+		}
+		return null;
 	}
 }

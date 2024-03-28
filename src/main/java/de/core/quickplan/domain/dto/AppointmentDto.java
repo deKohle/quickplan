@@ -52,7 +52,7 @@ public class AppointmentDto {
 	 */
 	public AppointmentDto(Appointment app) {
 		super();
-		this.identifier = app.getIdentifier().toString();
+		this.identifier = app.getIdentifier().toString();//app.getIdentifier()==null?null:
 		this.begin = app.getBegin().toString();
 		this.end = app.getEnd().toString();
 		this.date = null;

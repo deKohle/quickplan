@@ -39,7 +39,7 @@ public class SiteCreator {
 	 */
 	public static ModelAndView dateFragment(AppointmentDto app)
 	{
-		Constructor con = new Constructor(null,"fragments/input :: date");
+		Constructor con = new Constructor(null,"fragments/input");//.html :: date
 		con.add("date", app);
 		return con.construct();
 	}
