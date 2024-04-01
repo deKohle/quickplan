@@ -19,4 +19,4 @@ jobs:
         java-version: "17"
         cache: maven
     - name: Build Project
-      run: ./mvnw -B -DskipTests install --file ./pom.xml
+      run: mvn -B -DskipTests install --file ./pom.xml
