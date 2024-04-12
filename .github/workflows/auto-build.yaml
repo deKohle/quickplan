@@ -1,4 +1,4 @@
-name: CI Maven-Build
+name: CI Maven-Build, -Test & Docker-Release
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  Build:
+  Build & Test:
     runs-on: ubuntu-latest
     services:
       # Description for runner-local postgres-server
@@ -37,5 +37,12 @@ jobs:
         distribution: "temurin"
         java-version: "17"
         cache: maven
-    - name: Build & Test Project
+    - name: Build Project
       run: mvn -B install --file ./pom.xml
+  
+  # Release:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Check out repository
+  #     uses: actions/checkout@v4
+  #   - name: 
