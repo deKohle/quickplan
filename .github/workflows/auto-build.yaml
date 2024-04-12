@@ -48,7 +48,7 @@ jobs:
   
   docker_build_and_release:
     name: Docker - build & release image
-    depends: mvn_build_and_test
+    needs: mvn_build_and_test
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository
