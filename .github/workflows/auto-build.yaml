@@ -10,18 +10,22 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     services:
+      # Description for runner-local postgres-server
       postgres:
         image: postgres
         env:
+          # Values based on "src/main/resources/application.properties"
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: Eisar1#?732
           POSTGRES_PORT: 5432
           POSTGRES_DB: quickplan
+        # Options to make the runner wait until the docker container is ready
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        # Forward Docker's port 5432 to the host's port 5432
         ports:
           - 5432:5432
     steps:
@@ -33,5 +37,5 @@ jobs:
         distribution: "temurin"
         java-version: "17"
         cache: maven
-    - name: Build Project
+    - name: Build & Test Project
       run: mvn -B install --file ./pom.xml
