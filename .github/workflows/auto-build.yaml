@@ -9,6 +9,14 @@ on:
 jobs:
   Build:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: Eisar1#?732
+          POSTGRES_PORT: 5432
+          POSTGRES_DB: quickplan
     steps:
     - name: Check out repository
       uses: actions/checkout@v4
@@ -19,4 +27,4 @@ jobs:
         java-version: "17"
         cache: maven
     - name: Build Project
-      run: mvn -B -DskipTests install --file ./pom.xml
+      run: mvn -B install --file ./pom.xml
