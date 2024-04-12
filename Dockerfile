@@ -1,4 +1,4 @@
-FROM postgres
+FROM ubuntu/postgres
 COPY ./quickplan.jar ./quickplan.jar
 EXPOSE 80
 EXPOSE 8080
