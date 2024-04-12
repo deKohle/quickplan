@@ -7,7 +7,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  Build & Test:
+  mvn_build_and_test:
+    name: Maven - build & test jar
     runs-on: ubuntu-latest
     services:
       # Description for runner-local postgres-server
@@ -39,10 +40,49 @@ jobs:
         cache: maven
     - name: Build Project
       run: mvn -B install --file ./pom.xml
+    - name: Upload project's .jar as an artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: quickplan-jar
+        path: target/quickplan.jar
   
-  # Release:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Check out repository
-  #     uses: actions/checkout@v4
-  #   - name: 
+  docker_build_and_release:
+    name: Docker - build & release image
+    depends: mvn_build_and_test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+    - name: Get `quickplan.jar`
+      uses: actions/download-artifact@v4
+      with:
+        name: quickplan-jar
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        tags: quickplan:latest
+        outputs: type=docker,dest=:./image.tar
+    - name: Upload Docker-image (temporary)
+      uses: actions/upload-artifact@v4
+      with:
+        name: docker-image
+        path: ./image.tar
+    # - name: Log in to the Container registry
+    #     uses: docker/login-action@v3
+    #     with:
+    #       registry: ${{ env.REGISTRY }}
+    #       username: ${{ github.actor }}
+    #       password: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Extract metadata (tags, labels) for Docker
+    #     id: meta
+    #     uses: docker/metadata-action@v5
+    #     with:
+    #       images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+    # - name: Build and push Docker image
+    #     uses: docker/build-push-action@v5
+    #     with:
+    #       context: .
+    #       push: true
+    #       tags: ${{ steps.meta.outputs.tags }}
+    #       labels: ${{ steps.meta.outputs.labels }}
