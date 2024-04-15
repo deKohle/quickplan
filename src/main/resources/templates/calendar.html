@@ -45,13 +45,13 @@
 													<th:block th:replace="~{fragments/input :: date(${date})}"></th:block>
 												</div>
 											</div>
-											<form class="new-date-form">
+											<div class="new-date-form">
 												<input type="text" name="description" class="backside-input"/>
 												<input type="hidden" name="date" th:value="${calendar.year +'-'+ calendar.monthNumberAsString +'-'+ day.dayOfMonth}"/>
 												<button class="add-date action-button" type="button">
 													<i class="fa-solid fa-plus"></i>
 												</button>
-											</form>
+											</div>
 										</div>
 									</div>
 								</td>

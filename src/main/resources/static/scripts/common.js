@@ -5,7 +5,8 @@ var swapper = {
 		days: $('.show-dates'),
 		form: $('.calendar-back'),
 		input: $('.calendar-back input'),
-		buttons: $('.calendar-back button')
+		buttons: $('.calendar-back button'),
+		copyOrigin: null
 	},
 
 	init: function() {
@@ -24,12 +25,26 @@ var swapper = {
 	
 	fillForm: function(obj) {
 		dates = obj.currentTarget.parentNode.getElementsByClassName('dates-of-day')[0];
+		instance.copyOrigin = dates.getElementsByClassName('dates-of-day-inner')[0];
 		newThings = dates.cloneNode(true);
 		addTo = objects.form.get(0).getElementsByClassName('fillable')[0];
 		try {addTo.removeChild(addTo.lastChild);}catch(e){}
 		newThings.hidden = false;
 		instance.addNewListeners(newThings);
 		addTo.appendChild(newThings);
+	},
+	
+	copyFormToOrigin: function() {
+		toCopy = document.getElementsByClassName('calendar-back')[0].getElementsByClassName('dates-of-day-inner')[0];
+		copied = toCopy.cloneNode(true);
+		for(let node of instance.copyOrigin.children) 
+		{
+			instance.copyOrigin.removeChild(node);
+		}
+		for(let node of copied.children) 
+		{
+			instance.copyOrigin.appendChild(node);
+		}
 	},
 	
 	addNewListeners: function(obj) {
@@ -95,8 +110,10 @@ var swapper = {
 	},
 	
 	returnFromBackground: function() {
+		location.reload();//easiest way to prevent the current errors
+		/*instance.copyFormToOrigin()
 		objects.form.hide();
-		instance.swap(objects.form, objects.calendar);
+		instance.swap(objects.form, objects.calendar);*/
 	},
 
 	addListeners: function() {

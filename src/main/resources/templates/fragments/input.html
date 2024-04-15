@@ -4,7 +4,7 @@
 </head>
 <body>
 
-<form th:fragment="date(date)">
+<div th:fragment="date(date)">
 	<input type="text" name="description" th:value="${date.description}" class="backside-input"/>
 	<input type="hidden" name="begin" th:value="${date.begin}"/>
 	<input type="hidden" name="end" th:value="${date.end}"/>
@@ -15,7 +15,7 @@
 	<button class="delete-date action-button" type="button">
 		<i class="fa-solid fa-trash"></i>
 	</button>
-</form>
+</div>
 
 </body>
 </html>

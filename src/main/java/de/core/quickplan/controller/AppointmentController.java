@@ -98,7 +98,7 @@ public class AppointmentController {
 	 * @return
 	 */
 	@RequestMapping(path=ENDPOINT_URI, method=RequestMethod.GET)
-	public List<AppointmentDto> readAppointment(@Valid @ModelAttribute("appointment") AppointmentDto app)
+	public Object readAppointment(@ModelAttribute("appointment") AppointmentDto app)
 	{
 		try {
 			if(app.getIdentifier() != null)
@@ -108,6 +108,11 @@ public class AppointmentController {
 				List<AppointmentDto> list = new ArrayList<AppointmentDto>();
 				list.add(result);
 				return list;
+			}
+			if(app.getBegin() == null || app.getEnd() == null)
+			{
+				logger.debug("READING but got invalid input");
+				return ResponseService.error();
 			}
 			logger.trace("READING multiple appointments");
 			return IterableService.convert(
