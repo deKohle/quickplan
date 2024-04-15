@@ -15,4 +15,4 @@ RUN apt update \
 	&& apt update \
 	&& apt install temurin-17-jre -y \
 	&& echo "localhost:5432:quickplan:postgres:Eisar1#?732" > ~/.pgpass
-CMD [ "docker-entrypoint.sh && sleep 10 && java -jar ./quickplan.jar" ]
+ENTRYPOINT [ "docker-entrypoint.sh && sleep 10 && java -jar ./quickplan.jar" ]
