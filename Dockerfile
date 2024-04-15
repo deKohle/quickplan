@@ -15,6 +15,6 @@ RUN apt update \
 	&& apt update \
 	&& apt install temurin-17-jre -y \
 	&& echo "localhost:5432:quickplan:postgres:Eisar1#?732" > ~/.pgpass \
- 	&& echo "docker-entrypoint.sh && sleep 10 && java -jar ./quickplan.jar" > start_docker.sh \
+ 	&& echo -e "docker-entrypoint.sh\nwhile true; do\n\tpg_isready || break\n\techo 'Postgres is not ready yet...'\n\tsleep 1\ndone\njava -jar ./quickplan.jar" > start_docker.sh \
   	&& chmod +x ./start_docker.sh
 CMD [ "./start_docker.sh" ]
