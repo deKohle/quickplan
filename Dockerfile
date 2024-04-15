@@ -1,6 +1,6 @@
 FROM ubuntu/postgres
 COPY ./quickplan.jar ./quickplan.jar
-COPY ./docker-init.sql /docker-entrypoint-initdb.d/docker-init.sql
+COPY ./start_docker.sh ./start_docker.sh
 EXPOSE 80
 EXPOSE 8080
 EXPOSE 443
@@ -8,6 +8,7 @@ EXPOSE 8443
 ENV POSTGRES_USER postgres
 ENV POSTGRES_PASSWORD Eisar1#?732
 ENV POSTGRES_DB quickplan
+ENV POSTGRES_HOST localhost
 RUN apt update \
 	&& apt install -y wget apt-transport-https gpg \
 	&& wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor | tee /etc/apt/trusted.gpg.d/adoptium.gpg > /dev/null \
@@ -15,6 +16,5 @@ RUN apt update \
 	&& apt update \
 	&& apt install temurin-17-jre -y \
 	&& echo "localhost:5432:quickplan:postgres:Eisar1#?732" > ~/.pgpass \
- 	&& echo -e "docker-entrypoint.sh\nwhile true; do\n\tpg_isready || break\n\techo 'Postgres is not ready yet...'\n\tsleep 1\ndone\njava -jar ./quickplan.jar" > start_docker.sh \
-  	&& chmod +x ./start_docker.sh
-CMD [ "./start_docker.sh" ]
+	&& chmod +x ./start_docker.sh
+ENTRYPOINT [ "./start_docker.sh" ]
