@@ -14,5 +14,7 @@ RUN apt update \
 	&& echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list \
 	&& apt update \
 	&& apt install temurin-17-jre -y \
-	&& echo "localhost:5432:quickplan:postgres:Eisar1#?732" > ~/.pgpass
-ENTRYPOINT [ "docker-entrypoint.sh && sleep 10 && java -jar ./quickplan.jar" ]
+	&& echo "localhost:5432:quickplan:postgres:Eisar1#?732" > ~/.pgpass \
+ 	&& echo "docker-entrypoint.sh && sleep 10 && java -jar ./quickplan.jar" > start_docker.sh \
+  	&& chmod +x ./start_docker.sh
+CMD [ "./start_docker.sh" ]
