@@ -1,2 +1,0 @@
-CREATE DATABASE quickplan;
-GRANT ALL PRIVILEGES ON DATABASE quickplan TO postgres;
